@@ -1,0 +1,1134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Container HQ — Cold Email Playbook</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Serif+Display:ital@0;1&family=DM+Mono:wght@400;500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #111111;
+    --bg2: #1a1a1a;
+    --bg3: #222222;
+    --text: #f0ebe0;
+    --muted: #888880;
+    --orange: #ff4d00;
+    --blue: #4a9eff;
+    --green: #00e87a;
+    --border: rgba(240,235,224,0.1);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 300;
+    line-height: 1.6;
+    overflow-x: hidden;
+  }
+
+  /* ── HERO ── */
+  .hero {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 80px 60px;
+    position: relative;
+    border-bottom: 1px solid var(--border);
+    overflow: hidden;
+  }
+
+  .hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: 
+      radial-gradient(ellipse 60% 50% at 80% 50%, rgba(255,77,0,0.07) 0%, transparent 70%),
+      repeating-linear-gradient(90deg, transparent, transparent 80px, rgba(255,255,255,0.015) 80px, rgba(255,255,255,0.015) 81px),
+      repeating-linear-gradient(0deg, transparent, transparent 80px, rgba(255,255,255,0.015) 80px, rgba(255,255,255,0.015) 81px);
+  }
+
+  .hero-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.3em;
+    color: var(--orange);
+    text-transform: uppercase;
+    margin-bottom: 32px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .hero-label::before {
+    content: '';
+    width: 40px;
+    height: 1px;
+    background: var(--orange);
+  }
+
+  .hero h1 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(72px, 10vw, 140px);
+    line-height: 0.9;
+    letter-spacing: 0.02em;
+    color: var(--text);
+    max-width: 900px;
+    position: relative;
+    z-index: 1;
+  }
+
+  .hero h1 span {
+    color: var(--orange);
+    display: block;
+  }
+
+  .hero-sub {
+    margin-top: 40px;
+    font-size: 20px;
+    color: var(--muted);
+    max-width: 560px;
+    line-height: 1.5;
+    position: relative;
+    z-index: 1;
+  }
+
+  .hero-stats {
+    display: flex;
+    gap: 60px;
+    margin-top: 60px;
+    position: relative;
+    z-index: 1;
+  }
+
+  .hero-stat-num {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 52px;
+    color: var(--text);
+    line-height: 1;
+  }
+
+  .hero-stat-num span { color: var(--orange); }
+
+  .hero-stat-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    color: var(--muted);
+    text-transform: uppercase;
+    margin-top: 6px;
+  }
+
+  .hero-scroll {
+    position: absolute;
+    bottom: 40px;
+    left: 60px;
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    color: var(--muted);
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .hero-scroll::after {
+    content: '';
+    width: 60px;
+    height: 1px;
+    background: var(--muted);
+    animation: scroll-line 2s ease-in-out infinite;
+  }
+
+  @keyframes scroll-line {
+    0%, 100% { transform: scaleX(1); opacity: 0.5; }
+    50% { transform: scaleX(0.5); opacity: 1; }
+  }
+
+  /* ── SECTIONS ── */
+  section {
+    padding: 100px 60px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .section-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.3em;
+    color: var(--orange);
+    text-transform: uppercase;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .section-label::before {
+    content: attr(data-num);
+    font-size: 10px;
+    color: var(--bg3);
+    background: var(--orange);
+    width: 20px;
+    height: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 2px;
+    font-weight: 500;
+  }
+
+  .section-title {
+    font-family: 'DM Serif Display', serif;
+    font-size: clamp(36px, 4vw, 56px);
+    line-height: 1.1;
+    margin-bottom: 24px;
+    max-width: 700px;
+  }
+
+  .section-title em {
+    font-style: italic;
+    color: var(--orange);
+  }
+
+  /* ── OPPORTUNITY ── */
+  .opportunity-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2px;
+    margin-top: 60px;
+    background: var(--border);
+  }
+
+  .opp-card {
+    background: var(--bg2);
+    padding: 40px;
+  }
+
+  .opp-num {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 64px;
+    color: var(--orange);
+    line-height: 1;
+    margin-bottom: 8px;
+  }
+
+  .opp-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 12px;
+    letter-spacing: 0.15em;
+    color: var(--muted);
+    text-transform: uppercase;
+    margin-bottom: 12px;
+  }
+
+  .opp-desc {
+    font-size: 15px;
+    color: var(--text);
+    opacity: 0.7;
+    line-height: 1.5;
+  }
+
+  /* ── STACK ── */
+  .stack-section { background: var(--bg2); }
+
+  .stack-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 2px;
+    margin-top: 60px;
+    background: var(--border);
+  }
+
+  .stack-card {
+    background: var(--bg);
+    padding: 36px 32px;
+    position: relative;
+  }
+
+  .stack-card.total {
+    background: var(--orange);
+  }
+
+  .stack-card.total .stack-tool,
+  .stack-card.total .stack-cost,
+  .stack-card.total .stack-desc { color: #111; }
+
+  .stack-tool {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 20px;
+  }
+
+  .stack-cost {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 52px;
+    color: var(--text);
+    line-height: 1;
+    margin-bottom: 8px;
+  }
+
+  .stack-desc {
+    font-size: 13px;
+    color: var(--muted);
+    line-height: 1.4;
+  }
+
+  .stack-vs {
+    display: flex;
+    align-items: center;
+    gap: 40px;
+    margin-top: 48px;
+    padding: 32px 40px;
+    background: var(--bg3);
+    border-left: 4px solid var(--green);
+  }
+
+  .stack-vs-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+
+  .stack-vs-num {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 48px;
+    line-height: 1;
+  }
+
+  .strike { text-decoration: line-through; color: var(--muted); }
+  .green { color: var(--green); }
+
+  /* ── DOMAINS ── */
+  .domains-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 2px;
+    margin-top: 60px;
+    background: var(--border);
+  }
+
+  .domain-card {
+    background: var(--bg2);
+    padding: 20px 24px;
+    font-family: 'DM Mono', monospace;
+    font-size: 13px;
+    color: var(--text);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    transition: background 0.2s;
+  }
+
+  .domain-card:hover { background: var(--bg3); }
+
+  .domain-badge {
+    font-size: 10px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    padding: 3px 8px;
+    border-radius: 2px;
+  }
+
+  .domain-badge.brand {
+    background: rgba(74,158,255,0.15);
+    color: var(--blue);
+  }
+
+  .domain-badge.outcome {
+    background: rgba(255,77,0,0.15);
+    color: var(--orange);
+  }
+
+  .domain-cost {
+    font-size: 11px;
+    color: var(--muted);
+    margin-left: 12px;
+  }
+
+  /* ── TIMELINE ── */
+  .timeline {
+    position: relative;
+    margin-top: 60px;
+    padding-left: 40px;
+  }
+
+  .timeline::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 20px;
+    bottom: 20px;
+    width: 1px;
+    background: var(--border);
+  }
+
+  .timeline-item {
+    position: relative;
+    margin-bottom: 48px;
+    padding-left: 40px;
+  }
+
+  .timeline-item::before {
+    content: '';
+    position: absolute;
+    left: -4px;
+    top: 8px;
+    width: 9px;
+    height: 9px;
+    border-radius: 50%;
+    background: var(--orange);
+    box-shadow: 0 0 0 3px var(--bg), 0 0 0 4px var(--orange);
+  }
+
+  .timeline-week {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 13px;
+    letter-spacing: 0.2em;
+    color: var(--orange);
+    margin-bottom: 8px;
+  }
+
+  .timeline-title {
+    font-family: 'DM Serif Display', serif;
+    font-size: 24px;
+    margin-bottom: 12px;
+  }
+
+  .timeline-items {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  .timeline-items li {
+    font-size: 14px;
+    color: var(--muted);
+    padding-left: 16px;
+    position: relative;
+  }
+
+  .timeline-items li::before {
+    content: '—';
+    position: absolute;
+    left: 0;
+    color: var(--orange);
+  }
+
+  /* ── EMAIL ANGLES ── */
+  .angles-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2px;
+    margin-top: 60px;
+    background: var(--border);
+  }
+
+  .angle-card {
+    background: var(--bg2);
+    padding: 40px;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .angle-letter {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 96px;
+    line-height: 1;
+    color: var(--bg3);
+    margin-bottom: 20px;
+    transition: color 0.3s;
+  }
+
+  .angle-card:hover .angle-letter { color: var(--orange); }
+
+  .angle-name {
+    font-family: 'DM Serif Display', serif;
+    font-size: 22px;
+    margin-bottom: 12px;
+  }
+
+  .angle-subject {
+    font-family: 'DM Mono', monospace;
+    font-size: 12px;
+    color: var(--blue);
+    margin-bottom: 20px;
+    letter-spacing: 0.05em;
+  }
+
+  .angle-desc {
+    font-size: 14px;
+    color: var(--muted);
+    line-height: 1.6;
+    flex: 1;
+  }
+
+  .angle-tag {
+    display: inline-block;
+    margin-top: 24px;
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    padding: 5px 12px;
+    border: 1px solid var(--border);
+    border-radius: 2px;
+    color: var(--muted);
+  }
+
+  /* ── RULES ── */
+  .rules-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2px;
+    margin-top: 48px;
+    background: var(--border);
+  }
+
+  .rule-card {
+    background: var(--bg2);
+    padding: 32px 36px;
+    display: flex;
+    gap: 20px;
+    align-items: flex-start;
+  }
+
+  .rule-icon {
+    font-size: 24px;
+    flex-shrink: 0;
+  }
+
+  .rule-title {
+    font-family: 'DM Serif Display', serif;
+    font-size: 18px;
+    margin-bottom: 8px;
+  }
+
+  .rule-desc {
+    font-size: 13px;
+    color: var(--muted);
+    line-height: 1.5;
+  }
+
+  /* ── TARGETS ── */
+  .targets-section { background: var(--bg2); }
+
+  .targets-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 2px;
+    margin-top: 60px;
+    background: var(--border);
+  }
+
+  .target-card {
+    background: var(--bg);
+    padding: 40px 32px;
+    text-align: center;
+  }
+
+  .target-num {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 64px;
+    color: var(--text);
+    line-height: 1;
+    margin-bottom: 8px;
+  }
+
+  .target-num .counter { color: var(--orange); }
+
+  .target-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.15em;
+    color: var(--muted);
+    text-transform: uppercase;
+  }
+
+  /* ── DIVISION OF WORK ── */
+  .work-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2px;
+    margin-top: 60px;
+    background: var(--border);
+  }
+
+  .work-col {
+    background: var(--bg2);
+    padding: 48px;
+  }
+
+  .work-col.agent { background: var(--bg3); }
+
+  .work-col-header {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 36px;
+    padding-bottom: 24px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .work-col-icon {
+    font-size: 28px;
+  }
+
+  .work-col-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 28px;
+    letter-spacing: 0.05em;
+  }
+
+  .work-col-time {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    color: var(--orange);
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    margin-left: auto;
+  }
+
+  .work-items {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .work-item {
+    display: flex;
+    gap: 16px;
+    align-items: flex-start;
+    font-size: 15px;
+  }
+
+  .work-item-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--orange);
+    margin-top: 8px;
+    flex-shrink: 0;
+  }
+
+  .work-item-dot.blue { background: var(--blue); }
+
+  .work-item-text { line-height: 1.5; }
+  .work-item-sub {
+    font-size: 12px;
+    color: var(--muted);
+    margin-top: 3px;
+  }
+
+  /* ── LONGER GAME ── */
+  .longer-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2px;
+    margin-top: 60px;
+    background: var(--border);
+  }
+
+  .longer-card {
+    background: var(--bg2);
+    padding: 36px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .longer-card::before {
+    content: attr(data-month);
+    position: absolute;
+    top: -10px;
+    right: -10px;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 120px;
+    color: rgba(255,77,0,0.04);
+    line-height: 1;
+    pointer-events: none;
+  }
+
+  .longer-month {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--orange);
+    margin-bottom: 16px;
+  }
+
+  .longer-title {
+    font-family: 'DM Serif Display', serif;
+    font-size: 20px;
+    margin-bottom: 12px;
+  }
+
+  .longer-desc {
+    font-size: 13px;
+    color: var(--muted);
+    line-height: 1.6;
+  }
+
+  /* ── FOOTER ── */
+  footer {
+    padding: 60px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    color: var(--muted);
+    letter-spacing: 0.15em;
+  }
+
+  footer a { color: var(--orange); text-decoration: none; }
+
+  /* ── REVEAL ANIMATIONS ── */
+  .reveal {
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+
+  .reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 900px) {
+    section, .hero { padding: 60px 24px; }
+    .stack-grid, .targets-grid { grid-template-columns: 1fr 1fr; }
+    .angles-grid, .longer-grid { grid-template-columns: 1fr; }
+    .opportunity-grid, .work-grid, .rules-grid { grid-template-columns: 1fr; }
+    .hero-stats { flex-wrap: wrap; gap: 32px; }
+    footer { flex-direction: column; gap: 12px; text-align: center; }
+  }
+
+  @media (max-width: 600px) {
+    .stack-grid, .targets-grid { grid-template-columns: 1fr; }
+    .domains-grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-label">Container HQ — Internal Strategy Document</div>
+  <h1>Cold Email<span>Playbook.</span></h1>
+  <p class="hero-sub">$437/month to run an agency-quality outreach operation targeting self-storage operators across the US, Canada, and Europe.</p>
+  <div class="hero-stats">
+    <div>
+      <div class="hero-stat-num">$<span class="counter" data-target="437">0</span><span>/mo</span></div>
+      <div class="hero-stat-label">Total Infrastructure Cost</div>
+    </div>
+    <div>
+      <div class="hero-stat-num"><span class="counter" data-target="20">0</span></div>
+      <div class="hero-stat-label">Sending Domains</div>
+    </div>
+    <div>
+      <div class="hero-stat-num"><span class="counter" data-target="60">0</span></div>
+      <div class="hero-stat-label">Active Inboxes</div>
+    </div>
+    <div>
+      <div class="hero-stat-num"><span class="counter" data-target="30">0</span><span> days</span></div>
+      <div class="hero-stat-label">To First Discovery Calls</div>
+    </div>
+  </div>
+  <div class="hero-scroll">Scroll to explore</div>
+</section>
+
+<!-- OPPORTUNITY -->
+<section>
+  <div class="section-label" data-num="01">The Opportunity</div>
+  <h2 class="section-title">Self-storage operators need to grow. <em>We make it trivial.</em></h2>
+  <div class="opportunity-grid reveal">
+    <div class="opp-card">
+      <div class="opp-num">8×20</div>
+      <div class="opp-label">Portable Steel Containers</div>
+      <div class="opp-desc">Modular units that expand existing facilities without permits, without construction crews, without 12-month timelines.</div>
+    </div>
+    <div class="opp-card">
+      <div class="opp-num">7 days</div>
+      <div class="opp-label">Time to Operational</div>
+      <div class="opp-desc">From signed order to revenue-generating units on-site. Traditional construction takes 12–18 months.</div>
+    </div>
+    <div class="opp-card">
+      <div class="opp-num">$80–150</div>
+      <div class="opp-label">Revenue Per Unit Per Month</div>
+      <div class="opp-desc">Typical return for self-storage operators from day one. No vacancy period, no buildout delay.</div>
+    </div>
+    <div class="opp-card">
+      <div class="opp-num">3 continents</div>
+      <div class="opp-label">Scraped Lead Database</div>
+      <div class="opp-desc">We already have a list of self-storage facilities across the US, Canada, and Europe. The leads exist. We just need to reach them.</div>
+    </div>
+  </div>
+</section>
+
+<!-- THE STACK -->
+<section class="stack-section">
+  <div class="section-label" data-num="02">The Infrastructure</div>
+  <h2 class="section-title">Agency-quality cold email. <em>Fraction of the cost.</em></h2>
+  <p style="color:var(--muted); max-width:560px; margin-top:16px;">Agencies charge $8,000/month to run this exact stack. We run it ourselves for $437/month — same output, zero markup.</p>
+  <div class="stack-grid reveal">
+    <div class="stack-card">
+      <div class="stack-tool">Porkbun — Domains</div>
+      <div class="stack-cost">$40<span style="font-size:24px;color:var(--muted)">/mo</span></div>
+      <div class="stack-desc">20 sending domains at ~$2/ea. Never use the main domain for cold email. These protect containerhq.com.</div>
+    </div>
+    <div class="stack-card">
+      <div class="stack-tool">Google Workspace — Inboxes</div>
+      <div class="stack-cost">$360<span style="font-size:24px;color:var(--muted)">/mo</span></div>
+      <div class="stack-desc">60 inboxes across 20 domains (3 per domain). Google deliverability, real-person appearance.</div>
+    </div>
+    <div class="stack-card">
+      <div class="stack-tool">Instantly.ai — Warmup + Send</div>
+      <div class="stack-cost">$37<span style="font-size:24px;color:var(--muted)">/mo</span></div>
+      <div class="stack-desc">Automated warmup, sequence management, A/B testing, reply detection, analytics dashboard.</div>
+    </div>
+    <div class="stack-card total">
+      <div class="stack-tool">Total Monthly Cost</div>
+      <div class="stack-cost">$437<span style="font-size:24px">/mo</span></div>
+      <div class="stack-desc">All in. No hidden costs. Scales with results, not headcount.</div>
+    </div>
+  </div>
+  <div class="stack-vs reveal">
+    <div>
+      <div class="stack-vs-label">Agency alternative</div>
+      <div class="stack-vs-num strike">$8,000/mo</div>
+    </div>
+    <div style="font-size:40px;color:var(--border)">→</div>
+    <div>
+      <div class="stack-vs-label">Our cost</div>
+      <div class="stack-vs-num green">$437/mo</div>
+    </div>
+    <div style="font-size:40px;color:var(--border)">→</div>
+    <div>
+      <div class="stack-vs-label">Monthly savings</div>
+      <div class="stack-vs-num green">$7,563/mo</div>
+    </div>
+  </div>
+</section>
+
+<!-- DOMAINS -->
+<section>
+  <div class="section-label" data-num="03">The 20 Domains</div>
+  <h2 class="section-title">All confirmed <em>available.</em> Ready to buy on Porkbun.</h2>
+  <p style="color:var(--muted); max-width:560px; margin-top:16px;">Domain availability verified via live WHOIS check. ~$2/month each from Porkbun.</p>
+  <div class="domains-grid reveal">
+    <div class="domain-card">containerhq.co <span><span class="domain-badge brand">Brand</span><span class="domain-cost">$2/mo</span></span></div>
+    <div class="domain-card">containerhq.io <span><span class="domain-badge brand">Brand</span><span class="domain-cost">$2/mo</span></span></div>
+    <div class="domain-card">containerhq.net <span><span class="domain-badge brand">Brand</span><span class="domain-cost">$2/mo</span></span></div>
+    <div class="domain-card">getcontainerhq.com <span><span class="domain-badge brand">Brand</span><span class="domain-cost">$2/mo</span></span></div>
+    <div class="domain-card">trycontainerhq.com <span><span class="domain-badge brand">Brand</span><span class="domain-cost">$2/mo</span></span></div>
+    <div class="domain-card">expandmystorage.com <span><span class="domain-badge outcome">Outcome</span><span class="domain-cost">$2/mo</span></span></div>
+    <div class="domain-card">addstorageunits.com <span><span class="domain-badge outcome">Outcome</span><span class="domain-cost">$2/mo</span></span></div>
+    <div class="domain-card">selfstorageexpansion.com <span><span class="domain-badge outcome">Outcome</span><span class="domain-cost">$2/mo</span></span></div>
+    <div class="domain-card">storagefacilitygrowth.com <span><span class="domain-badge outcome">Outcome</span><span class="domain-cost">$2/mo</span></span></div>
+    <div class="domain-card">scaleyourstorage.com <span><span class="domain-badge outcome">Outcome</span><span class="domain-cost">$2/mo</span></span></div>
+    <div class="domain-card">storageunitexpansion.com <span><span class="domain-badge outcome">Outcome</span><span class="domain-cost">$2/mo</span></span></div>
+    <div class="domain-card">storagecontainerpro.com <span><span class="domain-badge outcome">Outcome</span><span class="domain-cost">$2/mo</span></span></div>
+    <div class="domain-card">containerstoragepro.com <span><span class="domain-badge outcome">Outcome</span><span class="domain-cost">$2/mo</span></span></div>
+    <div class="domain-card">containerexpansion.com <span><span class="domain-badge outcome">Outcome</span><span class="domain-cost">$2/mo</span></span></div>
+    <div class="domain-card">portablecontainerstorage.com <span><span class="domain-badge outcome">Outcome</span><span class="domain-cost">$2/mo</span></span></div>
+    <div class="domain-card">storageoperatortools.com <span><span class="domain-badge outcome">Outcome</span><span class="domain-cost">$2/mo</span></span></div>
+    <div class="domain-card">containerunitstorage.com <span><span class="domain-badge outcome">Outcome</span><span class="domain-cost">$2/mo</span></span></div>
+    <div class="domain-card">storagebuildfast.com <span><span class="domain-badge outcome">Outcome</span><span class="domain-cost">$2/mo</span></span></div>
+    <div class="domain-card">storageunitsfast.com <span><span class="domain-badge outcome">Outcome</span><span class="domain-cost">$2/mo</span></span></div>
+    <div class="domain-card">quickstoragescale.com <span><span class="domain-badge outcome">Outcome</span><span class="domain-cost">$2/mo</span></span></div>
+  </div>
+</section>
+
+<!-- TIMELINE -->
+<section>
+  <div class="section-label" data-num="04">The Timeline</div>
+  <h2 class="section-title">From zero to <em>discovery calls</em> in 30 days.</h2>
+  <div class="timeline reveal">
+    <div class="timeline-item">
+      <div class="timeline-week">Week 01</div>
+      <div class="timeline-title">Setup & Configuration</div>
+      <ul class="timeline-items">
+        <li>Buy 20 domains on Porkbun (~30 min, Kaulin)</li>
+        <li>Create Google Workspace account (~15 min, Kaulin)</li>
+        <li>Sign up for Instantly.ai (~10 min, Kaulin)</li>
+        <li>Agent configures all DNS records (DKIM, SPF, DMARC)</li>
+        <li>Agent creates all 60 inboxes via Google Admin API</li>
+        <li>Agent connects inboxes to Instantly, starts warmup</li>
+      </ul>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-week">Weeks 02–03</div>
+      <div class="timeline-title">Warmup Running + Copy Creation</div>
+      <ul class="timeline-items">
+        <li>Domains building sending reputation automatically</li>
+        <li>Agent writes 15 email templates (3 angles × 5 variants)</li>
+        <li>Agent segments existing facility list by geography + estimated capacity</li>
+        <li>A/B test sequences configured in Instantly</li>
+        <li>Reply handling logic built — positive replies route to Kaulin with full context</li>
+      </ul>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-week">Week 03</div>
+      <div class="timeline-title">First Sends</div>
+      <ul class="timeline-items">
+        <li>Start at 20–30 emails/day (conservative during early warmup)</li>
+        <li>Monitor deliverability, open rates, reply rates</li>
+        <li>First replies expected within days</li>
+      </ul>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-week">Week 04+</div>
+      <div class="timeline-title">Scale & Optimize</div>
+      <ul class="timeline-items">
+        <li>Scale to 100–200 sends/day across all inboxes</li>
+        <li>Winning angle gets 80% of volume, others get 10% each</li>
+        <li>Discovery calls being booked</li>
+        <li>Agent monitors performance, adjusts sequences weekly</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- EMAIL ANGLES -->
+<section>
+  <div class="section-label" data-num="05">The 3 Email Angles</div>
+  <h2 class="section-title">Plain text. Under 100 words. <em>One CTA.</em></h2>
+  <div class="angles-grid reveal">
+    <div class="angle-card">
+      <div class="angle-letter">A</div>
+      <div class="angle-name">Capacity Hook</div>
+      <div class="angle-subject">Subject: Quick question about [Facility Name]</div>
+      <div class="angle-desc">Short, curiosity-driven. Opens with a genuine question about their current situation. Low-pressure, high-relevance. Works because operators who are at capacity are actively thinking about this.</div>
+      <span class="angle-tag">Test First</span>
+    </div>
+    <div class="angle-card">
+      <div class="angle-letter">B</div>
+      <div class="angle-name">Revenue Math</div>
+      <div class="angle-subject">Subject: $80–150/unit/month without construction</div>
+      <div class="angle-desc">Leads with the outcome. Operators understand ROI language. Makes the business case before asking for time. Most effective with operators who have empty land sitting idle.</div>
+      <span class="angle-tag">High Intent</span>
+    </div>
+    <div class="angle-card">
+      <div class="angle-letter">C</div>
+      <div class="angle-name">Proof of Work</div>
+      <div class="angle-subject">Subject: Sketched something out for [Facility Name]</div>
+      <div class="angle-desc">Includes a personalized 60-second Loom video showing their facility layout in the container configurator. Even weak copy gets 3–5× more replies when a video is attached. Highest effort, highest reward.</div>
+      <span class="angle-tag">Highest Reply Rate</span>
+    </div>
+  </div>
+  <div class="rules-grid reveal" style="margin-top:2px;">
+    <div class="rule-card">
+      <div class="rule-icon">📄</div>
+      <div>
+        <div class="rule-title">Plain text only</div>
+        <div class="rule-desc">No logos, no HTML, no images. The email should look like it came from a person. Logos signal mass marketing — reply rates drop immediately.</div>
+      </div>
+    </div>
+    <div class="rule-card">
+      <div class="rule-icon">🎯</div>
+      <div>
+        <div class="rule-title">One CTA per email</div>
+        <div class="rule-desc">Not "visit our website or call us or reply." Just: "Worth a 10-minute call?" Confusion kills conversion.</div>
+      </div>
+    </div>
+    <div class="rule-card">
+      <div class="rule-icon">⚡</div>
+      <div>
+        <div class="rule-title">Under 100 words</div>
+        <div class="rule-desc">Operators are busy. Long emails get deleted. Say what you need to say in the first three sentences and stop.</div>
+      </div>
+    </div>
+    <div class="rule-card">
+      <div class="rule-icon">🤐</div>
+      <div>
+        <div class="rule-title">Never anchor on price</div>
+        <div class="rule-desc">When they ask "what's the cost?" — don't answer with a number. Answer with a question: "Depends on your setup — how many units are you thinking about?"</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 30-DAY TARGETS -->
+<section class="targets-section">
+  <div class="section-label" data-num="06">30-Day Targets</div>
+  <h2 class="section-title">What <em>success</em> looks like.</h2>
+  <div class="targets-grid reveal">
+    <div class="target-card">
+      <div class="target-num"><span class="counter" data-target="2000">0</span></div>
+      <div class="target-label">Emails Sent</div>
+    </div>
+    <div class="target-card">
+      <div class="target-num"><span class="counter" data-target="5">0</span><span style="color:var(--orange)">%</span></div>
+      <div class="target-label">Target Reply Rate</div>
+    </div>
+    <div class="target-card">
+      <div class="target-num"><span class="counter" data-target="100">0</span></div>
+      <div class="target-label">Expected Replies</div>
+    </div>
+    <div class="target-card">
+      <div class="target-num"><span class="counter" data-target="10">0</span></div>
+      <div class="target-label">Discovery Calls Booked</div>
+    </div>
+  </div>
+</section>
+
+<!-- DIVISION OF WORK -->
+<section>
+  <div class="section-label" data-num="07">Division of Work</div>
+  <h2 class="section-title">One hour from Kaulin. <em>Everything else automated.</em></h2>
+  <div class="work-grid reveal">
+    <div class="work-col">
+      <div class="work-col-header">
+        <div class="work-col-icon">🧑</div>
+        <div>
+          <div class="work-col-title">Kaulin Does</div>
+        </div>
+        <div class="work-col-time">~1 hour total</div>
+      </div>
+      <ul class="work-items">
+        <li class="work-item">
+          <div class="work-item-dot"></div>
+          <div>
+            <div class="work-item-text">Buy 20 domains on Porkbun</div>
+            <div class="work-item-sub">~30 min · porkbun.com · ~$40 total</div>
+          </div>
+        </li>
+        <li class="work-item">
+          <div class="work-item-dot"></div>
+          <div>
+            <div class="work-item-text">Set up Google Workspace account</div>
+            <div class="work-item-sub">~15 min · workspace.google.com · $6/user/mo</div>
+          </div>
+        </li>
+        <li class="work-item">
+          <div class="work-item-dot"></div>
+          <div>
+            <div class="work-item-text">Sign up for Instantly.ai</div>
+            <div class="work-item-sub">~10 min · instantly.ai · ~$37/mo · don't configure anything</div>
+          </div>
+        </li>
+      </ul>
+    </div>
+    <div class="work-col agent">
+      <div class="work-col-header">
+        <div class="work-col-icon">🤖</div>
+        <div>
+          <div class="work-col-title">Agent Handles</div>
+        </div>
+        <div class="work-col-time">Fully automated</div>
+      </div>
+      <ul class="work-items">
+        <li class="work-item">
+          <div class="work-item-dot blue"></div>
+          <div class="work-item-text">All DNS records — DKIM, SPF, DMARC for all 20 domains</div>
+        </li>
+        <li class="work-item">
+          <div class="work-item-dot blue"></div>
+          <div class="work-item-text">All 60 inboxes created via Google Admin API</div>
+        </li>
+        <li class="work-item">
+          <div class="work-item-dot blue"></div>
+          <div class="work-item-text">Warmup configuration and monitoring in Instantly</div>
+        </li>
+        <li class="work-item">
+          <div class="work-item-dot blue"></div>
+          <div class="work-item-text">Email copy — 15 templates across 3 angles</div>
+        </li>
+        <li class="work-item">
+          <div class="work-item-dot blue"></div>
+          <div class="work-item-text">List segmentation — geography, facility size, priority scoring</div>
+        </li>
+        <li class="work-item">
+          <div class="work-item-dot blue"></div>
+          <div class="work-item-text">Sending sequences + A/B test logic</div>
+        </li>
+        <li class="work-item">
+          <div class="work-item-dot blue"></div>
+          <div class="work-item-text">Reply monitoring + positive reply routing to Kaulin</div>
+        </li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- LONGER GAME -->
+<section>
+  <div class="section-label" data-num="08">The Longer Game</div>
+  <h2 class="section-title">Cold email is the start. <em>Here's what compounds.</em></h2>
+  <div class="longer-grid reveal">
+    <div class="longer-card" data-month="M2">
+      <div class="longer-month">Month 2</div>
+      <div class="longer-title">Programmatic SEO</div>
+      <div class="longer-desc">7,500 city/state landing pages targeting operator searches. "8x20 storage container Tampa FL." Verified to produce $25K+ additional revenue in 30 days for similar businesses. This runs in the background while cold email runs in the foreground.</div>
+    </div>
+    <div class="longer-card" data-month="M2">
+      <div class="longer-month">Month 2</div>
+      <div class="longer-title">Self-Storage Weekly Newsletter</div>
+      <div class="longer-desc">AI scrapes industry news daily, auto-drafts a weekly newsletter for operators. Kaulin reviews in 10 minutes, sends. Builds a first-party email list of ideal customers that compounds into Container HQ leads over months.</div>
+    </div>
+    <div class="longer-card" data-month="M3">
+      <div class="longer-month">Month 3</div>
+      <div class="longer-title">AI Inbound Voice Agent</div>
+      <div class="longer-desc">AI voice agent handles inbound sales calls 24/7. Qualifies leads, answers pricing questions, books discovery calls automatically. No sales hire needed as volume scales. First call response in seconds, not business hours.</div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <span>Container HQ Growth Playbook — Confidential</span>
+  <span>Generated by <a href="#">Mango 🥭</a> · Feb 2026</span>
+</footer>
+
+<script>
+  // Counter animation
+  function animateCounter(el) {
+    const target = parseInt(el.getAttribute('data-target'));
+    const duration = 1500;
+    const start = performance.now();
+    
+    function update(time) {
+      const elapsed = time - start;
+      const progress = Math.min(elapsed / duration, 1);
+      const eased = 1 - Math.pow(1 - progress, 3);
+      el.textContent = Math.round(eased * target).toLocaleString();
+      if (progress < 1) requestAnimationFrame(update);
+    }
+    requestAnimationFrame(update);
+  }
+
+  // Intersection Observer for reveals + counters
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        // Trigger counters inside this element
+        entry.target.querySelectorAll('.counter[data-target]').forEach(animateCounter);
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.1 });
+
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+  // Hero counters on load
+  setTimeout(() => {
+    document.querySelectorAll('.hero .counter[data-target]').forEach(animateCounter);
+  }, 400);
+</script>
+</body>
+</html>
